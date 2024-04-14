@@ -1,6 +1,6 @@
 // section.js
-export function sectionImage(main) {
-  const sections = document.querySelectorAll('.section');
+export default function sectionImage(main) {
+  const sections = main.querySelectorAll('.section');
 
   sections.forEach((section) => {
     // Find the first image within the section

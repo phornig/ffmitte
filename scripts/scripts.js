@@ -13,7 +13,7 @@ import {
   loadCSS,
 } from './aem.js';
 
-import { sectionImage } from './section.js';
+import sectionImage from './section.js';
 
 const LCP_BLOCKS = []; // add your LCP blocks to the list
 
