@@ -20,7 +20,7 @@
   --text-color: black;
 
   /* fonts */
-  --body-font-family: roboto, roboto-fallback;
+  --body-font-family: berlintypeweb, berlintypeweb-fallback;
   --heading-font-family: var(--body-font-family);
   --fixed-font-family: 'Roboto Mono', menlo, consolas, 'Liberation Mono', monospace;
 
@@ -42,7 +42,7 @@
 }
 
 @font-face {
-  font-family: roboto-fallback;
+  font-family: berlintypeweb-fallback;
   size-adjust: 100.06%;
   ascent-override: 95%;
   src: local('Arial');
@@ -57,6 +57,10 @@
     --heading-font-size-s: 24px;
     --heading-font-size-xs: 22px;
   }
+}
+
+html {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -207,4 +211,23 @@ main .section {
 main .section.light,
 main .section.highlight {
   background-color: var(--light-color);
+}
+
+main .default-content-wrapper {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+
+  .section-main-image {
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    object-fit: cover;
+    box-sizing: border-box;
+  }
+}
+
+.hide {
+  display: none;
 }

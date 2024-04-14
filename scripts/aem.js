@@ -538,6 +538,11 @@ function updateSectionsStatus(main) {
       } else {
         section.dataset.sectionStatus = 'loaded';
         section.style.display = null;
+
+        if (section.innerHTML.trim() === '') {
+          // Add the 'hide' class to the section
+          section.classList.add('hide');
+        }
       }
     }
   }
