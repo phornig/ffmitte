@@ -16,7 +16,7 @@
   --link-hover-color: #136ff6;
   --background-color: white;
   --light-color: #eee;
-  --dark-color: #ccc;
+  --dark-color: #9d8971;
   --text-color: black;
 
   /* fonts */
@@ -99,8 +99,7 @@ h5 { font-size: var(--heading-font-size-s) }
 h6 { font-size: var(--heading-font-size-xs) }
 
 p, dl, ol, ul, pre, blockquote {
-  margin-top: 1em;
-  margin-bottom: 1em;
+  margin: 0;
 }
 
 code, pre {
@@ -191,19 +190,12 @@ main img {
 
 /* sections */
 main .section {
-  padding: 64px 16px;
+  padding: 0;
 }
 
 @media (width >= 600px) {
   main .section {
-    padding: 64px 32px;
-  }
-}
-
-@media (width >= 900px) {
-  .section > div {
-    max-width: 1200px;
-    margin: auto;
+    padding: 0;
   }
 }
 
@@ -215,9 +207,10 @@ main .section.highlight {
 
 main .default-content-wrapper {
   position: relative;
-  height: 100vh;
-  width: 100vw;
   overflow: hidden;
+  min-height: 80vh;
+  width: 100vw;
+  padding: 32px 0;
 
   .section-main-image {
     position: absolute;
@@ -225,9 +218,23 @@ main .default-content-wrapper {
     inset: 0;
     object-fit: cover;
     box-sizing: border-box;
+
+    img {
+      object-fit: cover;
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  h2, h3, p {
+    max-width: 1200px;
+    padding: 16px;
+    margin: auto;
+    background: rgb(255 255 255 / 80%);
   }
 }
 
 .hide {
   display: none;
+  height: 0;
 }

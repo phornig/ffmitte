@@ -7,8 +7,16 @@ footer {
 footer .footer {
   max-width: 1200px;
   margin: auto;
+  min-height: 200px;
 }
 
 footer .footer p {
   margin: 0;
+}
+
+footer .section-main-image img {
+  width: 320px;
+  height: auto;
+  float: right;
+  margin-left: 32px;
 }
