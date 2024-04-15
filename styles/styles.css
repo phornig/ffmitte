@@ -230,7 +230,7 @@ main .default-content-wrapper {
     max-width: 1200px;
     padding: 16px;
     margin: auto;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgb(255 255 255 / 80%);
   }
 }
 
