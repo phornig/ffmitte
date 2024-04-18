@@ -1,8 +1,8 @@
 # Webseite der FF Mitte
 
 ## Environments
-- Preview: https://main--ffmitte--phornig.hlx.page/
-- Live: https://main--ffmitte--phornig.hlx.live/
+- Preview: https://main--ffmitte--phornig.aem.page/
+- Live: https://main--ffmitte--phornig.aem.live/
 
 ## Installation
 
