@@ -20,3 +20,19 @@ footer .section-main-image img {
   float: right;
   margin-left: 32px;
 }
+
+footer .section.supporter {
+  clear: right;
+  font-size: 14px;
+}
+
+footer .section.supporter p {
+  margin-bottom: 10px;
+}
+
+footer .section.supporter img {
+  height: 30px;
+  width: auto;
+  float: none;
+  margin: 0;
+}
