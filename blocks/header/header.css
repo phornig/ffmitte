@@ -145,6 +145,7 @@ header .nav-brand {
   font-size: var(--heading-font-size-s);
   font-weight: 700;
   line-height: 1;
+  background-color: var(--background-color);
 }
 
 header nav .nav-brand img {
@@ -184,6 +185,17 @@ header nav .nav-sections ul > li > ul {
 
 header nav .nav-sections ul > li > ul > li {
   font-weight: 500;
+}
+
+/* mobile burger menu: larger, easier-to-tap items */
+@media (width < 900px) {
+  header nav .nav-sections ul {
+    font-size: 1.75rem;
+  }
+
+  header nav .nav-sections ul > li {
+    padding: 10px 0;
+  }
 }
 
 @media (width >= 900px) {
@@ -249,6 +261,7 @@ header nav .nav-sections ul > li > ul > li {
     margin-top: 12px;
     padding: 1em;
     background-color: var(--light-color);
+    color: var(--text-color);
     white-space: initial;
   }
 

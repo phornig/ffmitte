@@ -1,6 +1,7 @@
 footer {
   padding: 2rem;
-  background-color: var(--light-color);
+  background-color: var(--background-color);
+  border-top: 6px solid var(--link-color);
   font-size: var(--body-font-size-s);
 }
 
@@ -11,7 +12,8 @@ footer .footer {
 }
 
 footer .footer p {
-  margin: 0;
+  margin: 0 0 1.4em;
+  line-height: 1.3;
 }
 
 footer .section-main-image img {
@@ -19,6 +21,16 @@ footer .section-main-image img {
   height: auto;
   float: right;
   margin-left: 32px;
+}
+
+/* small screens: stack single column, so centre the (smaller) logo on top */
+@media (width < 700px) {
+  footer .section-main-image img {
+    float: none;
+    display: block;
+    width: 200px;
+    margin: 0 auto 1.5em;
+  }
 }
 
 footer .section.supporter {
