@@ -12,11 +12,11 @@
 
 :root {
   /* colors */
-  --link-color: #035fe6;
-  --link-hover-color: #136ff6;
+  --link-color: #cb1216;
+  --link-hover-color: #9e0e11;
   --background-color: white;
   --light-color: #eee;
-  --dark-color: #9d8971;
+  --dark-color: #1a1a1a;
   --text-color: black;
 
   /* fonts */
@@ -92,9 +92,9 @@ h4, h5, h6 {
 }
 
 h1 { font-size: var(--heading-font-size-xxl) }
-h2 { font-size: var(--heading-font-size-xl) }
-h3 { font-size: var(--heading-font-size-l) }
-h4 { font-size: var(--heading-font-size-m) }
+h2 { font-size: var(--heading-font-size-l) }
+h3 { font-size: var(--heading-font-size-m) }
+h4 { font-size: var(--heading-font-size-s) }
 h5 { font-size: var(--heading-font-size-s) }
 h6 { font-size: var(--heading-font-size-xs) }
 
@@ -144,7 +144,8 @@ a.button:any-link, button {
   padding: 5px 30px;
   text-align: center;
   font-style: normal;
-  font-weight: 600;
+  font-weight: 700;
+  text-transform: uppercase;
   cursor: pointer;
   color: var(--background-color);
   background-color: var(--link-color);
@@ -152,7 +153,7 @@ a.button:any-link, button {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  border-radius: 30px;
+  border-radius: 2px;
 }
 
 a.button:hover, a.button:focus, button:hover, button:focus  {
@@ -200,9 +201,153 @@ main .section {
 }
 
 /* section metadata */
-main .section.light,
-main .section.highlight {
+main .section.light {
   background-color: var(--light-color);
+}
+
+/*
+ * Chapter images: only the one directly below a heading is paired with the
+ * heading+text as a [image | text] row (side alternates chapter to chapter);
+ * any other image in the chapter is a plain full-width separator.
+ */
+main .chapter-row-image {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+}
+
+main .chapter-row-image picture,
+main .chapter-row-image img,
+main .chapter-row-image.section-main-image,
+main .chapter-row-image .section-main-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  margin: 0;
+}
+
+main .chapter-separator-image {
+  width: 100%;
+  max-width: none;
+  margin: 32px 0 0;
+  padding: 0;
+}
+
+main .chapter-separator-image picture,
+main .chapter-separator-image img,
+main .chapter-separator-image.section-main-image,
+main .chapter-separator-image .section-main-image {
+  display: block;
+  width: 100%;
+  height: 32vh;
+  object-fit: cover;
+  margin: 0;
+}
+
+/* chapter body text: reset the framework defaults, then space block children */
+main .chapter-text h2,
+main .chapter-text h3,
+main .chapter-text h4,
+main .chapter-text p,
+main .chapter-text ul {
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  background: none;
+}
+
+main .chapter-text > p,
+main .chapter-text > ul,
+main .chapter-text > h3,
+main .chapter-text > h4 {
+  padding: 0 var(--chapter-pad-x);
+  margin: 0 0 16px;
+}
+
+/*
+ * Row layout: heading and body text share one column; the image is the other.
+ * The heading sits in row 1 above the text, the image starts in row 2 so its
+ * top lines up with the first paragraph (not the heading). Mobile stacks in
+ * source order (heading, image, text).
+ */
+main .chapter-row {
+  display: flex;
+  flex-direction: column;
+}
+
+/* heading + body text carry the page gutters; the image is a full-bleed half */
+main .chapter-row > :first-child {
+  margin: 12px 0;
+  padding: 0 var(--chapter-pad-x);
+}
+
+main .chapter-row > .chapter-text {
+  padding: 0 var(--chapter-pad-x);
+}
+
+main .chapter-row > .chapter-text > p,
+main .chapter-row > .chapter-text > ul,
+main .chapter-row > .chapter-text > h3,
+main .chapter-row > .chapter-text > h4 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+@media (width >= 700px) {
+  main .chapter-row {
+    display: grid;
+    align-items: start;
+  }
+
+  /* tablet: favour the text so it isn't cramped; image stays under half */
+  main .chapter-image-right .chapter-row {
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    grid-template-areas:
+      'heading .'
+      'text    image';
+  }
+
+  main .chapter-image-left .chapter-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr);
+    grid-template-areas:
+      '.     heading'
+      'image text';
+  }
+
+  main .chapter-row > :first-child {
+    grid-area: heading;
+    align-self: end;
+  }
+
+  main .chapter-row-image {
+    grid-area: image;
+  }
+
+  main .chapter-row > .chapter-text {
+    grid-area: text;
+  }
+
+  /* gutters: page edge on the outer side, a gap toward the centred image */
+  main .chapter-image-right .chapter-row > :first-child,
+  main .chapter-image-right .chapter-row > .chapter-text {
+    padding: 0 40px 0 var(--chapter-pad-x);
+  }
+
+  main .chapter-image-left .chapter-row > :first-child,
+  main .chapter-image-left .chapter-row > .chapter-text {
+    padding: 0 var(--chapter-pad-x) 0 40px;
+  }
+}
+
+/* desktop: equal split so the image reads as a clean half, centre to edge */
+@media (width >= 1024px) {
+  main .chapter-image-right .chapter-row,
+  main .chapter-image-left .chapter-row {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
 }
 
 main .default-content-wrapper {
@@ -212,12 +357,17 @@ main .default-content-wrapper {
   width: 100vw;
   padding: 32px 0;
 
+  --chapter-pad-x: clamp(24px, 6vw, 160px);
+  --chapter-cut: polygon(0 0, 100% 0, 100% 100%, 48px 100%, 0 calc(100% - 48px));
+
   .section-main-image {
-    position: absolute;
-    z-index: -1;
-    inset: 0;
-    object-fit: cover;
-    box-sizing: border-box;
+    position: static;
+    z-index: auto;
+    inset: auto;
+    display: block;
+    width: 100%;
+    height: 45vh;
+    margin: 0 0 32px;
 
     img {
       object-fit: cover;
@@ -225,12 +375,171 @@ main .default-content-wrapper {
       height: 100%;
     }
   }
+}
 
-  h2, h3, p {
-    max-width: 1200px;
-    padding: 16px;
-    margin: auto;
-    background: rgb(255 255 255 / 80%);
+/*
+ * Content chapters (Über Uns / Jugendfeuerwehr / Förderverein).
+ * scripts.js splits the CMS content into one section per chapter heading, so
+ * each is a genuine, independent .section carrying its own chapter-* class,
+ * and always wraps the heading + its text in one `.chapter-text` block.
+ * Chapters with an image directly below the heading additionally pair that
+ * block with the image in a `.chapter-row`. Über Uns and Förderverein
+ * continue the hero's red; Jugendfeuerwehr is the dark beat in between.
+ */
+main .chapter-jugendfeuerwehr {
+  background: var(--dark-color);
+  color: white;
+}
+
+main .chapter-ueber-uns .default-content-wrapper,
+main .chapter-jugendfeuerwehr .default-content-wrapper,
+main .chapter-foerderverein .default-content-wrapper {
+  display: flow-root;
+  min-height: 0;
+  padding-bottom: 48px;
+}
+
+/* when a chapter ends in a separator image, sit it flush at the section's
+   bottom edge so the next (differently coloured) section begins right below */
+main .default-content-wrapper:has(> .chapter-separator-image:last-child) {
+  padding-bottom: 0;
+}
+
+/* chapter title (no-image chapter): full-width band with the page gutters */
+main .chapter-foerderverein .default-content-wrapper > h2 {
+  max-width: none;
+  margin: 0;
+  padding: 24px var(--chapter-pad-x);
+}
+
+main .section.highlight {
+  background-color: var(--link-color);
+  color: var(--background-color);
+}
+
+main .section.highlight h1,
+main .section.highlight h2,
+main .section.highlight h3,
+main .section.highlight h4,
+main .section.highlight h5,
+main .section.highlight h6 {
+  color: inherit;
+}
+
+main .section.highlight a:any-link {
+  color: inherit;
+  text-decoration: underline;
+}
+
+main .section.highlight a.button:any-link {
+  color: var(--link-color);
+  background-color: var(--background-color);
+}
+
+/*
+ * Förderverein: a description column (intro + supported-causes list) beside a
+ * donation card (the "Jetzt spenden" call to action: bank details + button).
+ */
+main .chapter-foerderverein .donation-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  padding: 8px var(--chapter-pad-x) 0;
+}
+
+main .chapter-foerderverein .donation-desc > p {
+  margin: 0 0 20px;
+}
+
+main .chapter-foerderverein .donation-desc ul {
+  list-style: none;
+  display: grid;
+  gap: 12px;
+  margin: 0 0 20px;
+}
+
+main .chapter-foerderverein .donation-desc li {
+  position: relative;
+  padding-left: 32px;
+}
+
+main .chapter-foerderverein .donation-desc li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: .5em;
+  width: 16px;
+  height: 4px;
+  background: currentcolor;
+}
+
+main .chapter-foerderverein .donation-card {
+  align-self: start;
+  box-sizing: border-box;
+  background: var(--background-color);
+  color: var(--text-color);
+  padding: 32px;
+  border-radius: 2px;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 25%);
+}
+
+main .chapter-foerderverein .donation-card h3 {
+  margin: 0;
+  color: var(--link-color);
+  text-transform: uppercase;
+}
+
+main .chapter-foerderverein .donation-card h4 {
+  margin: 24px 0 8px;
+  font-size: var(--body-font-size-s);
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  color: var(--dark-color);
+}
+
+main .chapter-foerderverein .donation-card p {
+  font-family: var(--fixed-font-family);
+  font-size: var(--body-font-size-xs);
+  line-height: 1.9;
+  background: var(--light-color);
+  padding: 14px 16px;
+  border-radius: 2px;
+}
+
+main .chapter-foerderverein .donation-card .button-container {
+  margin: 24px 0 0;
+  padding: 0;
+  background: none;
+  font-family: var(--body-font-family);
+}
+
+main .chapter-foerderverein .donation-card a.button:any-link {
+  display: block;
+  margin: 0;
+  color: var(--background-color);
+  background-color: var(--link-color);
+  text-decoration: none;
+}
+
+main .chapter-foerderverein .donation-card a.button:hover {
+  background-color: var(--link-hover-color);
+}
+
+@media (width >= 900px) {
+  main .chapter-foerderverein .donation-layout {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 56px;
+  }
+
+  main .chapter-foerderverein .donation-desc {
+    flex: 1.3 1 0%;
+  }
+
+  main .chapter-foerderverein .donation-card {
+    flex: 1 1 0%;
+    position: sticky;
+    top: calc(var(--nav-height) + 24px);
   }
 }
 
